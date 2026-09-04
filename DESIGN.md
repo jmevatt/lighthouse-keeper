@@ -14,8 +14,8 @@ selectively).
 **Engine:** Godot 4 (MIT-licensed) — confirmed. Isometric-style top-down 2D:
 square grid with iso-styled pixel-art tiles (the Core Keeper approach — the
 iso look without diamond-grid pathfinding/sorting costs; revisit before tile
-art starts, painful to swap later). Underground biomes are stacked levels
-linked by stairs and shafts.
+art starts, painful to swap later). The underground is one continuous
+chunk-streamed world; biomes are depth bands within it (see §10).
 
 ---
 
@@ -188,6 +188,7 @@ time-to-return; and every biome must feed the light economy.
 
 ### 8.1 Underground (vertical)
 
+One continuous world; the biomes below are depth bands within it.
 Increasing depth = ambient fear, darkness, enemy tier, and resource tier.
 
 1. **Sea Caves** — damp stone, copper/tin, crabs and bats. Tutorial pressure.
@@ -285,6 +286,14 @@ food buffs, specialists, story.
   invariants are unit-tested per seed. Hand-authored content overlays
   procgen later (set-piece rooms, the lighthouse interior), not the other
   way around.
+- **Underground: one continuous chunk-streamed world (Terraria model), set
+  v0.4.** Not stacked discrete levels. Chunks generate deterministically
+  from (world seed, chunk coordinate) using position-stable noise, so the
+  same cave exists no matter where or when it streams in; cleared areas
+  persist as terrain deltas re-applied on chunk load. Biomes (§8.1) are
+  depth bands — expanding deeper or sideways reaches them within the same
+  map. Digging is the traversal mechanic; no per-chunk connectivity
+  guarantee is needed.
 - **Base building: free-form tile placement (Core Keeper model), set v0.4.**
   Walls, floors, and structures are placeable/removable on the world grid,
   paid for with mined materials (stone from cave rock first). The lighthouse

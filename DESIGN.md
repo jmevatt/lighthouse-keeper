@@ -277,11 +277,20 @@ food buffs, specialists, story.
 - **Multiplayer: no.** Single-player, full stop. Architecture carries no
   netcode constraints.
 - **World generation: seed-based procedural (Terraria/Valheim model), set
-  v0.4.** Underground levels generate from a world seed — same seed, same
-  world. Generators must guarantee invariants (sealed borders, valid spawn,
-  spawn-reachable caverns) and those invariants are unit-tested per seed.
-  Hand-authored content overlays procgen later (set-piece rooms, the
-  lighthouse basement entrance), not the other way around.
+  v0.4.** Underground levels AND the surface cape generate from one world
+  seed — same seed, same world. The surface generator places the coastline,
+  lighthouse site, and tunnel entrance per seed. Generators must guarantee
+  invariants (sealed borders, valid spawn, spawn-reachable caverns,
+  lighthouse on land, tunnel reachable from the lighthouse) and those
+  invariants are unit-tested per seed. Hand-authored content overlays
+  procgen later (set-piece rooms, the lighthouse interior), not the other
+  way around.
+- **Base building: free-form tile placement (Core Keeper model), set v0.4.**
+  Walls, floors, and structures are placeable/removable on the world grid,
+  paid for with mined materials (stone from cave rock first). The lighthouse
+  tower itself stays structured — tier upgrades grow it as a set piece —
+  and free building surrounds it. Night-defense barricades and traps are
+  placed structures under the same system.
 - **Story: the mirror world.** Beneath the cape lies its dark parallel — the
   final biome is a mirrored surface world, and descending was always a
   crossing. Fear is bleed-through: high-fear hallucinations are glimpses of
